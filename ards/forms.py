@@ -4,7 +4,7 @@ from .models import Profile,Image,Comment
 class NewProfForm(forms.ModelForm):
     class Meta:
         model = Profile
-        exclude = ['user','posts']
+        exclude = ['user']
 
     # def __init__(self, *args, **kwargs):
     #     super(NewProfForm, self).__init__(*args, **kwargs)
