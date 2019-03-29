@@ -1,0 +1,61 @@
+{%extends 'all-image/base.html'%}
+
+<body>
+
+ {% block content %}
+
+ <div class="container">
+
+  <div class="row">
+     <div class="col-md-4">
+       <img style='height:200px;width:200px;margin:3%;border-radius:100%;' src="{{ profile.prof_pic.url }}" alt="">
+     </div>
+     <div class="col-md-2">
+       <h4 class="text-center" style="margin-top:60px;">{{Profile.user}}</h4>
+       <p>{{profile.bio}}</p>
+     </div>
+     <div class="col-md-1">
+       <a href="{% url 'edit_prof' %}">
+         <input type="submit" class="btn btn-primary btn-sm" value="Edit Profile">
+       </a>
+     </div>
+     <div class="col-md-3"></div>
+  </div>
+
+  <div class="row"style='margin:2%;'>
+    <a href="{%url 'new_img'%}">
+     <input type="submit" class="btn btn-primary btn-sm" value="Add Image">
+    </a>
+  </div>
+
+  <div class="row">
+    {% for image in images %}
+      <div class="" style='float:left;height:200;width:300;margin:3%;'>
+        <h3> {{ image.name }} </h3>
+        <img src="{{image.image.url}}" alt="Profile Pic">
+        <p>Posted <strong>{{image.pub_date|timesince}}</strong> ago</p>
+        <p>by <strong>{{image.profile.user}}</strong></p>
+        <a href="{%url 'delete' image.id %}" class="btn btn-danger btn-sm">
+          <i class="glyphicon glyphicon-trash" style="width:50px"></i>
+        </a>
+        <a href="" onclick="ftn()"class="btn btn-default btn-sm" id="like">
+          <i class="glyphicon glyphicon-thumbs-up" style="width:50px"></i>
+        </a>
+        <script type="text/javascript">
+          count=0;
+          document.getElementById("like").onclick=function ftn(){
+            count+=1;
+            document.getElementById("num").innerHTML=count+"like(s)";
+
+          }
+        </script>
+        <a href="{%url 'comment' %}" class="btn btn-primary btn-sm">Comment</a>
+        <p id="num"></p>
+      </div>
+    {%endfor%}
+   </div>
+ </div>
+ <!-- </div> -->
+
+ {% endblock %}
+</body>

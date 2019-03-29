@@ -1,0 +1,39 @@
+{%extends 'all-image/base.html'%}
+
+{% block content %}
+{{block.super}}
+
+<div class="container">
+  <h4>Suggestions For You</h4>
+  <div class="row">
+    <div class="users">
+      {% for profile in profiles %}
+        <hr>
+        <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-2">
+            <img style='height:150px;width:150px;margin:3%;border-radius:100%;' src="{{ profile.prof_pic.url }}" alt="">
+          </div>
+          <div class="col-md-2">
+            <h4 class="text-center" style="margin-top:60px;">{{profile.user.username}}</h4>
+          </div>
+          <div class="col-md-2">
+            <a href="{%url 'follow'%}">
+              <input style="margin-top:50px;" type="submit" class="btn btn-primary btn-bg" value="Follow">
+            </a>
+          </div>
+          <div class="col-md-3"></div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<footer style="color: white;text-align: center;background-color:rgb(40,0,20);">
+  <div class="">
+
+  </div>
+  <p style="padding-top:50px;">Copyright (c) 2019</p>
+  <p>Juru-10</p>
+  <hr style="width:50%;">
+</footer>
+{% endblock %}
