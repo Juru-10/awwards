@@ -80,6 +80,12 @@ def new_prof(request):
         form = NewProfForm()
     return render(request,'registration/new_prof.html',{"form": form})
 
+@login_required(login_url='/accounts/login/')
+def admin(request):
+    return render(request)
+
+        
+
 class ProjectList(APIView):
     def get(self, request, format=None):
         all_projects = Project.objects.all()

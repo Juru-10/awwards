@@ -13,9 +13,9 @@ class NewProfForm(forms.ModelForm):
 class NewProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        exclude = ['reviews']
+        exclude = ['profile','pub_date']
 
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ['design','usability','content']
+        fields = ['project']
