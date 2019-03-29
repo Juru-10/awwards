@@ -9,5 +9,10 @@ class Project(models.Model):
 class Profile(models.Model):
     prof_pic = models.ImageField(upload_to = 'ards/',default='SOME STRING')
     bio = models.CharField(max_length=300)
-    posts = models.ForeignKey(Projects)
-    email = models.CharField(max_length=30)
+    posts = models.ForeignKey(Project)
+    contact = models.CharField(max_length=30)
+
+class Review(models.Model):
+    design = models.RatingField(range=10)
+    usability = models.RatingField(range=10)
+    content = models.RatingField(range=10)
