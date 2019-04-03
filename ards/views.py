@@ -14,8 +14,11 @@ from .permissions import IsAdminOrReadOnly
 
 @login_required(login_url='/accounts/login')
 def home(request):
-    date = dt.date.today()
-    projects = Project.objects.all()
+    try:
+        date = dt.date.today()
+        projects = Project.objects.all()
+    except DoesNotExist:
+        raise Http404()
     return render(request,"all_posts/home.html",{"date": date, "projects": projects})
 
 @login_required(login_url='/accounts/login')
@@ -84,7 +87,7 @@ def new_prof(request):
 def admin(request):
     return render(request)
 
-        
+
 
 class ProjectList(APIView):
     def get(self, request, format=None):

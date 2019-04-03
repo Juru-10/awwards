@@ -1,13 +1,13 @@
-{%extends 'all-image/base.html'%}
+{%extends 'all_posts/base.html'%}
 
 {% block content %}
 {{block.super}}
 
 <div class="container">
-  <h4>Suggestions For You</h4>
+  <h4>All projects</h4>
   <div class="row">
     <div class="users">
-      {% for profile in profiles %}
+      {% for project in projects %}
         <hr>
         <div class="row">
           <div class="col-md-3"></div>
@@ -15,7 +15,7 @@
             <img style='height:150px;width:150px;margin:3%;border-radius:100%;' src="{{ profile.prof_pic.url }}" alt="">
           </div>
           <div class="col-md-2">
-            <h4 class="text-center" style="margin-top:60px;">{{profile.user.username}}</h4>
+            <h4 class="text-center" style="margin-top:60px;">{{project.name}}</h4>
           </div>
           <div class="col-md-2">
             <a href="{%url 'follow'%}">
