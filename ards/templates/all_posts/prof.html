@@ -6,51 +6,44 @@
 
  <div class="container">
 
-  <div class="row">
-     <div class="col-md-4">
-       <img style='height:200px;width:200px;margin:3%;border-radius:100%;' src="{{ profile.prof_pic.url }}" alt="">
+  <div class="row" style="margin-top:150px;margin-bottom:150px;">
+    <div class="col-md-3"></div>
+     <div class="col-md-3">
+       <img style='height:200px;width:200px;margin:3%;border-radius:100%;' src="{{ user.profile.prof_pic.url }}" alt="">
      </div>
      <div class="col-md-2">
-       <h4 class="text-center" style="margin-top:60px;">{{Profile.user}}</h4>
-       <p>{{profile.bio}}</p>
+       <h3>{{user}}</h3>
+       <p>{{user.profile.bio}}</p>
+       <p>{{user.profile.contact}}</p>
      </div>
      <div class="col-md-1">
-       <a href="{% url 'edit_prof' %}">
-         <input type="submit" class="btn btn-primary btn-sm" value="Edit Profile">
+       <a href="{% url 'new_prof' %}">
+         <input type="submit" class="btn btn-primary btn-sm" value="Edit Profile" style="margin-top:150px;">
        </a>
      </div>
      <div class="col-md-3"></div>
   </div>
 
   <div class="row"style='margin:2%;'>
-    <a href="{%url 'new_img'%}">
-     <input type="submit" class="btn btn-primary btn-sm" value="Add Image">
+    <a href="{%url 'new_project'%}">
+     <input type="submit" class="btn btn-primary btn-sm" value="Add a New Project">
     </a>
   </div>
 
   <div class="row">
-    {% for image in images %}
+    {% for project in projects %}
       <div class="" style='float:left;height:200;width:300;margin:3%;'>
-        <h3> {{ image.name }} </h3>
-        <img src="{{image.image.url}}" alt="Profile Pic">
-        <p>Posted <strong>{{image.pub_date|timesince}}</strong> ago</p>
-        <p>by <strong>{{image.profile.user}}</strong></p>
-        <a href="{%url 'delete' image.id %}" class="btn btn-danger btn-sm">
-          <i class="glyphicon glyphicon-trash" style="width:50px"></i>
+        <h3> {{ project.title }} </h3>
+        <img src="{{project.image.url}}" alt="Project Pic">
+        <p>Posted <strong>{{project.pub_date|timesince}}</strong> ago</p>
+        <p>by <strong>{{project.profile.user}}</strong></p>
+        <a href="{%url 'delete' project.id %}" class="btn btn-danger btn-sm">
+          <i class="glyphicon glyphicon-trash" style="width:80px;font-size:30px;"></i>
         </a>
-        <a href="" onclick="ftn()"class="btn btn-default btn-sm" id="like">
-          <i class="glyphicon glyphicon-thumbs-up" style="width:50px"></i>
+        <a href="{%url 'new_review' %}"class="btn btn-default btn-sm" id="like">
+          <i class="glyphicon glyphicon-pencil" style="width:80px;font-size:30px;">Rate</i>
         </a>
-        <script type="text/javascript">
-          count=0;
-          document.getElementById("like").onclick=function ftn(){
-            count+=1;
-            document.getElementById("num").innerHTML=count+"like(s)";
 
-          }
-        </script>
-        <a href="{%url 'comment' %}" class="btn btn-primary btn-sm">Comment</a>
-        <p id="num"></p>
       </div>
     {%endfor%}
    </div>

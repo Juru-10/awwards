@@ -11,8 +11,9 @@ urlpatterns = [
     # url(r'^login$',views.login,name='login'),
     url(r'^new_prof$',views.new_prof,name='new_prof'),
     url(r'^new_project$',views.new_project,name='new_project'),
+    url(r'^delete/<id>/(\d+)$',views.delete,name='delete'),
     # url(r'^registration_form$',views.registration_form,name='registration_form'),
-    # url(r'^review$',views.review,name='review'),
+    url(r'^new_review$',views.new_review,name='new_review'),
     url(r'^admin/$',views.admin,name='admin'),
     url(r'api/profile/profile-id/(?P<pk>[0-9]+)/$',views.ProfileDescription.as_view()),
     url(r'api/project/project-id/(?P<pk>[0-9]+)/$',views.ProjectDescription.as_view())

@@ -18,4 +18,4 @@ class NewProjectForm(forms.ModelForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ['project']
+        exclude = ['project']

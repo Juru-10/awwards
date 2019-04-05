@@ -7,7 +7,7 @@ from .forms import NewProfForm, NewProjectForm, ReviewForm
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import  Profile,Project,Review
+from .models import  Profile,Project,Review,User
 from .serializer import ProjectSerializer,ProfileSerializer
 from rest_framework import status
 from .permissions import IsAdminOrReadOnly
@@ -23,10 +23,14 @@ def home(request):
 
 @login_required(login_url='/accounts/login')
 def prof(request):
-    user = request.user
-    profile = Profile.objects.filter(user).first()
-    projects = projects.objects.filter(user)
-    return render(request,"all_posts/prof.html",{"profile": profile, "projects": projects})
+    users =User.objects.all()
+
+    for user in users:
+        user=user
+        profile = Profile.objects.all()
+        projects = Project.objects.all()
+        print(user)
+    return render(request,"all_posts/prof.html",{ "user": user,"profile": profile,"projects": projects})
 
 @login_required(login_url='/accounts/login')
 def project(request,id):
@@ -46,11 +50,14 @@ def search(request):
 
 @login_required(login_url='/accounts/login')
 def new_prof(request):
+    current_user = request.user
     if request.method == 'POST':
         form = NewProfForm(request.POST,request.FILES)
-        # print(form.errors.as_text())
+        print(form.errors.as_text())
         if form.is_valid():
             profile = form.save(commit=False)
+            profile.user = current_user
+            # profile=Profile.objects.update()
             profile.save()
         return redirect('prof')
     else:
@@ -59,11 +66,14 @@ def new_prof(request):
 
 @login_required(login_url='/accounts/login')
 def new_project(request):
+    current_user=request.user
+    profile= Profile.objects.filter(user=current_user.id).first()
     if request.method == 'POST':
         form = NewProjectForm(request.POST,request.FILES)
-        # print(form.errors.as_text())
+        print(form)
         if form.is_valid():
             project = form.save(commit=False)
+            project.profile=profile
             project.save()
         return redirect('prof')
     else:
@@ -71,21 +81,35 @@ def new_project(request):
     return render(request,'registration/new_project.html',{"form": form,"id":id})
 
 @login_required(login_url='/accounts/login')
-def new_prof(request):
+def new_review(request):
+    current_user=request.user
+    profile= Profile.objects.filter(user=current_user.id).first()
+    project= Project.objects.filter(profile=profile.id).first()
     if request.method == 'POST':
         form = ReviewForm(request.POST,request.FILES)
         # print(form.errors.as_text())
         if form.is_valid():
             review = form.save(commit=False)
+            review.project=project
             review.save()
         return redirect('prof')
     else:
-        form = NewProfForm()
-    return render(request,'registration/new_prof.html',{"form": form})
+        form = ReviewForm()
+    return render(request,'registration/review.html',{"form": form})
 
 @login_required(login_url='/accounts/login/')
 def admin(request):
     return render(request)
+
+@login_required(login_url='/accounts/login/')
+def delete(request,id):
+    project = Project.objects.filter(id=id)
+    project.delete()
+    return redirect('prof')
+
+
+
+
 
 
 

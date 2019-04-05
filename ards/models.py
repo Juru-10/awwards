@@ -5,11 +5,14 @@ from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 from django.core.validators import MaxValueValidator,MinValueValidator
 
+from django.db.models.signals import post_save
+
 class Profile(models.Model):
-    user = models.OneToOneField(User,null=True)
-    prof_pic = models.ImageField(upload_to = 'ards/',default='SOME STRING')
+    user = models.OneToOneField(User,null=True,related_name='profile')
+    prof_pic = models.ImageField(upload_to = 'ards/',default='Profile Pic')
     bio = models.CharField(max_length=300)
     contact = models.CharField(max_length=30)
+    pub_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
         return self.user
@@ -17,10 +20,19 @@ class Profile(models.Model):
     def save_profile(self):
         self.save()
 
+    def create_profile(sender,instance,created,**kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    post_save.connect(create_profile,sender=User)
+        # user = request.user
+        # profile = Profile.objects.filter(user=user).first()
+        # return profile
+
 class Project(models.Model):
-    profile = models.ForeignKey(Profile,on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE,null=True)
     title = models.CharField(max_length=30)
-    image = models.ImageField(upload_to = 'ards/',default='SOME STRING')
+    image = models.ImageField(upload_to = 'ards/',default='Project Image')
     description = models.CharField(max_length=300)
     link = models.CharField(max_length=100)
     pub_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
@@ -35,7 +47,7 @@ class Project(models.Model):
         self.delete()
 
 class Review(models.Model):
-    project = models.ForeignKey(Project,on_delete=models.CASCADE)
+    project = models.ForeignKey(Project,on_delete=models.CASCADE,null=True)
     design = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])
     usability = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])
     content = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])
