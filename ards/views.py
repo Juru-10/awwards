@@ -17,6 +17,8 @@ def home(request):
     try:
         date = dt.date.today()
         projects = Project.objects.all()
+        # project = Project.objects.filter(id).first()
+        # overall = (project.design+project.usability+project.
     except DoesNotExist:
         raise Http404()
     return render(request,"all_posts/home.html",{"date": date, "projects": projects})
@@ -41,8 +43,9 @@ def project(request,id):
 def search(request):
     if 'project' in request.GET and request.GET["project"]:
         title = request.GET.get("project")
-        owner = request.GET.get("project")
-        searched_projects = Project.search_project(title,owner)
+        print(title)
+        # owner = request.GET.get("project")
+        searched_projects = Project.search_project(title)
         message = f"{title}"
         return render(request,"all_posts/search.html", {"message": message, "projects": searched_projects})
     else:

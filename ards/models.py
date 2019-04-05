@@ -49,11 +49,11 @@ class Project(models.Model):
         self.delete()
 
     @classmethod
-    def search_project(cls,title,owner):
-        project = cls.objects.filter(
-        Q(title__icontains=title) |
-        Q(profile__user__icontains=owner)
-        )
+    def search_project(cls,title):
+        project = cls.objects.filter(title__icontains=title)
+        # Q(title__icontains=title) |
+        # Q(profile__user__icontains=owner)
+        # )
         return project
 
 class Review(models.Model):
