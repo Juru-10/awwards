@@ -16,7 +16,7 @@
       {% for project in projects %}
         <div class="" style='float:left;margin:1%;'>
           <h3> {{ project.title }} </h3>
-          <img id="img" src="{{project.image.url}}" alt="Project Pic"style="width:22.2vw;height:20vw;">
+          <img id="img" src="{{project.image.url}}" alt="Project Pic"style="width:412px;height:360px;">
           <p>Posted <strong>{{project.pub_date|timesince}}</strong> ago</p>
           <p>by <strong>{{project.profile.user}}</strong></p>
           <a href="{%url 'delete' project.id %}" class="btn btn-danger btn-sm">
