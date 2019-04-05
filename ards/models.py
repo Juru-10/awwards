@@ -7,6 +7,8 @@ from django.core.validators import MaxValueValidator,MinValueValidator
 
 from django.db.models.signals import post_save
 
+from django.db.models import Q
+
 class Profile(models.Model):
     user = models.OneToOneField(User,null=True,related_name='profile')
     prof_pic = models.ImageField(upload_to = 'ards/',default='Profile Pic')
@@ -45,6 +47,14 @@ class Project(models.Model):
 
     def delete_project(self):
         self.delete()
+
+    @classmethod
+    def search_project(cls,title,owner):
+        project = cls.objects.filter(
+        Q(title__icontains=title) |
+        Q(profile__user__icontains=owner)
+        )
+        return project
 
 class Review(models.Model):
     project = models.ForeignKey(Project,on_delete=models.CASCADE,null=True)

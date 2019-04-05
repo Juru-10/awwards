@@ -3,10 +3,10 @@
 <div class="container">
 
   <div class="row">
-    {% if images%}
-      <h2>Found {{ images|length }} of searched term {{message}}</h2>
+    {% if projects%}
+      <h2>Found {{ projects|length }} of searched term {{message}}</h2>
     {% else %}
-      <h2> Found 0 images for the search term {{message}}</h2>
+      <h2> Found 0 projects for the search term {{message}}</h2>
     {% endif %}
 
   </div>
@@ -16,11 +16,11 @@
   <div class=""style="display:grid;grid-template-columns: 30% 30% 30%;
       grid-auto-rows: 25.6em;
       grid-gap: 60px;">
-      {% if images %}
-        {% for image in images %}
+      {% if projects %}
+        {% for project in projects %}
           <div class="col-sm-6 col-md-3">
-              <h3>{{image.name}}</h3>
-              <a href=""><img style="height:200px;width:300px;"src="{{image.image.url}}" alt="{{image.image}}"></a>
+              <h3>{{project.title}}</h3>
+              <a href=""><img style="height:200px;width:300px;"src="{{project.image.url}}" alt="{{project.image}}"></a>
 
           </div>
         {% endfor %}

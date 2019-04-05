@@ -15,7 +15,13 @@
     {% bootstrap_css %}
     <link rel="stylesheet" href="{% static 'css/baseimage.css' %}">
   {% endblock %}
-
+  <style media="screen">
+    @media only screen and (max-width: 600px) {
+      #img {
+        width:80vw;
+      }
+    }
+  </style>
 </head>
 <body>
     {% include "navbar.html" %}

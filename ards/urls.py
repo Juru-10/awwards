@@ -16,7 +16,9 @@ urlpatterns = [
     url(r'^new_review$',views.new_review,name='new_review'),
     url(r'^admin/$',views.admin,name='admin'),
     url(r'api/profile/profile-id/(?P<pk>[0-9]+)/$',views.ProfileDescription.as_view()),
-    url(r'api/project/project-id/(?P<pk>[0-9]+)/$',views.ProjectDescription.as_view())
+    url(r'api/project/project-id/(?P<pk>[0-9]+)/$',views.ProjectDescription.as_view()),
+    url(r'^api/profiles/$', views.ProfileList.as_view()),
+    url(r'^api/projects/$', views.ProjectList.as_view()),
 ]
 
 if settings.DEBUG:

@@ -43,9 +43,9 @@ class ReviewTest(TestCase):
         self.project = Project(profile = self.juru, title = 'Test', image = 'Test Image', description = 'Test', link = 'Test')
         self.project.save()
 
-        self.review = Review(profile = self.new_project, design = , usability = self.usability, content = self.content)
+        self.review = Review(project = self.project, design = 4, usability = 4, content = 1)
 
     def test_save(self):
-        self.project.save_review()
+        self.review.save_review()
         reviews = Project.objects.all()
         self.assertTrue(len(reviews) >0 )
