@@ -55,6 +55,7 @@ def search(request):
 @login_required(login_url='/accounts/login')
 def new_prof(request):
     current_user = request.user
+    user = User.objects.filter().first()
     if request.method == 'POST':
         form = NewProfForm(request.POST,request.FILES)
         print(form.errors.as_text())
